@@ -33,10 +33,11 @@ class MenuItem(models.Model):
 
 
 class Order(models.Model):
+    STATUS_CHOICES = [("pending","pending"),("done","done")]
     customer = models.ForeignKey(User, on_delete=models.Case)
     items = models.ManyToManyField(MenuItem)
     total_cost = models.DecimalField(max_digits=10, decimal_places=2,default=0)
-    status = models.CharField(max_length=50)
+    status = models.CharField(max_length=50,choices=STATUS_CHOICES,default="pending")
 
     def __str__(self) -> str:
         return self.status
